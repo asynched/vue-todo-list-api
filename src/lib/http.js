@@ -5,6 +5,6 @@
  * @property { import('express').Response } response
  */
 
-export const addContext = (handler) => {
+export const bindContext = (handler) => {
   return (request, response) => handler({ request, response })
 }

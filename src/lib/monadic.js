@@ -1,7 +1,7 @@
 /**
  * @template HandlerReturnType Handler return type
  * @param { () => HandlerReturnType} handler Handler function
- * @returns { [Awaited<HandlerReturnType>, Error] } A tuple containing the data or error
+ * @returns { Promise<[Awaited<HandlerReturnType>, Error]> } A tuple containing the data or error
  */
 export const monadic = async (handler) => {
   try {
