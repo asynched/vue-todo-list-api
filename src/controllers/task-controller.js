@@ -1,6 +1,6 @@
 import { monadic } from '@/lib/monadic'
 
-import Task from '@/models/Task'
+import Task from '@/models/task'
 import TaskView from '@/views/task-view'
 import TaskValidator from '@/validators/task-validator'
 
