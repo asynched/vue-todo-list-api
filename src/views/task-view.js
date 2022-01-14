@@ -1,4 +1,9 @@
 export default class TaskView {
+  /**
+   * Maps a source task to an API response valid task
+   * @param { Object } task The task to be sanitized
+   * @returns { Object } A sanitized task
+   */
   static sanitize(task) {
     return {
       id: task.id,
