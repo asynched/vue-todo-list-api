@@ -4,7 +4,7 @@ info:
   title: 'Tasks API'
   description: 'This api provides a list of tasks in JSON format'
   version: 1.0.0
-host: 'localhost:3333'
+host: 'vue-todo-tasks.herokuapp.com'
 
 # Endpoint
 paths:
