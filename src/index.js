@@ -9,7 +9,7 @@ import connectToMongo from '@/database/mongo'
 import startApp from '@/lib/startup'
 
 const app = express()
-const port = process.env.APPLICATION_PORT
+const port = process.env.PORT
 
 app.use(express.json())
 app.use(cors())
