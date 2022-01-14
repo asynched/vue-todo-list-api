@@ -14,7 +14,8 @@ This API serves mainly as a CRUD for registering tasks, it has no authentication
 
 ## Endpoints 🌎
 
-All the endpoints are documented in the `/api/docs` found [here](https://vue-todo-tasks.herokuapp.com/api/docs).
+- The API url is https://vue-todo-tasks.herokuapp.com/api.
+- All the endpoints are documented in the `/api/docs` found [here](https://vue-todo-tasks.herokuapp.com/api/docs).
 
 ## Running the app 💻
 
@@ -65,7 +66,7 @@ Start the server with:
 $ docker-compose up
 ```
 
-## Author 🙋
+## Author 🙋‍♂️
 
 | ![Eder Lima](https://github.com/asynched.png?size=100) |
 | ------------------------------------------------------ |
