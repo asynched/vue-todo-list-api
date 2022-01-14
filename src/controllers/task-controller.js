@@ -1,8 +1,8 @@
-import { isEmpty } from '@/utils'
 import { monadic } from '@/lib/monadic'
 
 import Task from '@/models/Task'
 import TaskView from '@/views/task-view'
+import TaskValidator from '@/validators/task-validator'
 
 export default class TaskController {
   /**
@@ -33,8 +33,8 @@ export default class TaskController {
     const [task, error] = await monadic(() => Task.findById(id).exec())
 
     if (error) {
-      return response.status(400).json({
-        message: "Couldn't get task",
+      return response.status(404).json({
+        message: 'The task you were looking for was not found',
         error,
       })
     }
@@ -48,14 +48,17 @@ export default class TaskController {
    * @param { import('@/lib/http').ContextType } context HTTP request context
    */
   static async createTask({ request, response }) {
-    const { title, description } = request.body
+    const [isValid, errors] = TaskValidator.validate(request.body)
 
-    if (isEmpty(title) || isEmpty(description)) {
+    if (!isValid) {
       return response.status(400).json({
-        message: 'Cannot register a task that has empty fields',
-        description: 'Either the field title or description was empty',
+        message:
+          'Could not create task, see the errors below for more information',
+        error: errors,
       })
     }
+
+    const { title, description } = request.body
 
     const data = {
       title,
@@ -66,7 +69,7 @@ export default class TaskController {
     const [task, error] = await monadic(() => Task.create(data))
 
     if (error) {
-      return response.status(400).json({
+      return response.status(500).json({
         message: 'Something went wrong',
         error,
       })
@@ -89,7 +92,7 @@ export default class TaskController {
     )
 
     if (error) {
-      return response.status(400).json({
+      return response.status(404).json({
         message: `Couldn't update task "${taskID}"`,
         error: error,
       })
@@ -107,7 +110,7 @@ export default class TaskController {
     const [, error] = await monadic(() => Task.findByIdAndDelete(taskID).exec())
 
     if (error) {
-      return response.status(400).json({
+      return response.status(404).json({
         message: `Couldn't delete task with id "${id}"`,
         error: error,
       })
