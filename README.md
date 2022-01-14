@@ -1,22 +1,22 @@
-# vue-todo-list-api
+# vue-todo-list-api 🖖
 
 API for the todo list app made in Vue
 
-## About
+## About 📖
 
 This API serves mainly as a CRUD for registering tasks, it has no authentication system and is free for registering and deleting records.
 
-## Requirements
+## Requirements ✅
 
 - NodeJS
 - NPM or Yarn
 - Docker (if running the container version)
 
-## Endpoints
+## Endpoints 🌎
 
 All the endpoints are documented in the `/api/docs` found [here](https://vue-todo-tasks.herokuapp.com/api/docs).
 
-## Running the app
+## Running the app 💻
 
 ### Development mode
 
@@ -52,7 +52,7 @@ Run the server
 $ yarn start
 ```
 
-### Docker
+### Docker 🐳
 
 Requirements:
 
@@ -65,9 +65,7 @@ Start the server with:
 $ docker-compose up
 ```
 
-> Done. :D
-
-## Author
+## Author 🙋
 
 | ![Eder Lima](https://github.com/asynched.png?size=100) |
 | ------------------------------------------------------ |
