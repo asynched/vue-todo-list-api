@@ -1,6 +1,7 @@
-import { monadic } from '@/lib/monadic'
-import Task from '@/models/Task'
 import { isEmpty } from '@/utils'
+import { monadic } from '@/lib/monadic'
+
+import Task from '@/models/Task'
 import TaskView from '@/views/task-view'
 
 export default class TaskController {
@@ -75,7 +76,45 @@ export default class TaskController {
     return response.status(201).json(sanitizedTask)
   }
 
-  static async updateTask() {}
+  /**
+   * Updates a task in the database
+   * @param { import('@/lib/http').ContextType } context HTTP request context
+   */
+  static async updateTask({ request, response }) {
+    const taskID = request.params.id
+    const updateData = request.body
 
-  static async deleteTask() {}
+    const [data, error] = await monadic(() =>
+      Task.findByIdAndUpdate(id, updateData).exec(),
+    )
+
+    if (error) {
+      return response.status(400).json({
+        message: `Couldn't update task "${taskID}"`,
+        error: error,
+      })
+    }
+
+    return response.status(200).json(data)
+  }
+
+  /**
+   * Deletes a task in the database
+   * @param { import('@/lib/http').ContextType } context HTTP request context
+   */
+  static async deleteTask({ request, response }) {
+    const taskID = request.params.id
+    const [, error] = await monadic(() => Task.findByIdAndDelete(taskID).exec())
+
+    if (error) {
+      return response.status(400).json({
+        message: `Couldn't delete task with id "${id}"`,
+        error: error,
+      })
+    }
+
+    return response.status(204).json({
+      message: 'Successfully deleted task',
+    })
+  }
 }
