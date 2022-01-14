@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 
 import './config/aliases'
 import './config/environment'
@@ -11,6 +12,7 @@ const app = express()
 const port = process.env.APPLICATION_PORT
 
 app.use(express.json())
-app.use('/', router)
+app.use(cors())
+app.use('/api', router)
 
 startApp(app, port, connectToMongo)
