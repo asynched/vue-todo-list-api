@@ -92,7 +92,7 @@ export default class TaskController {
     )
 
     if (error) {
-      return response.status(404).json({
+      return response.status(400).json({
         message: `Couldn't update task "${taskID}"`,
         error: error,
       })

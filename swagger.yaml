@@ -1,0 +1,187 @@
+# Metadata
+swagger: '2.0'
+info:
+  title: 'Tasks API'
+  description: 'This api provides a list of tasks in JSON format'
+  version: 1.0.0
+host: 'localhost:3333'
+
+# Endpoint
+paths:
+  # Tasks endpoint
+  /api/tasks:
+    get:
+      summary: Returns a list of tasks
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Indicates that the request has been successfully processed.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        500:
+          description: Indicates an error in the server, this endpoint should not throw any errors.
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Something went wrong'
+              error:
+                type: string
+                example: 'Something went wrong at ...'
+    post:
+      summary: Registers a task
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: task
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: Hello, world!
+              description:
+                type: string
+                example: This is a sample task.
+      responses:
+        201:
+          description: This status will indicate that a task has been added to the database
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: This status will indicate that a parameter was wrong
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Could not create task, see the errors below for more information
+              errors:
+                type: array
+                items:
+                  type: string
+                example:
+                  - Missing title
+                  - Missing description
+
+  # Single task endpoint
+  /api/tasks/{id}:
+    get:
+      summary: Returns a single task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          description: Task unique identifier
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Succesfully retrieved task from the database
+          schema:
+            $ref: '#/definitions/Task'
+        404:
+          description: Failed to retrieve task from the database
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'The task you were looking for was not found'
+              error:
+                type: string
+                example: "Could not convert the parameter '113' to a valid identifier"
+    delete:
+      summary: Deletes a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          description: Task unique identifier
+      produces:
+        - application/json
+      responses:
+        204:
+          description: Successfully deleted task from the database
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: 'Successfully deleted task'
+        404:
+          description: TheFailed to delete task from the database
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Couldn't delete task with id 204
+              error:
+                type: string
+                example: Couldn't retrieve task with id 204, invalid id
+    put:
+      summary: Updated the contents of a task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          type: string
+          description: Task unique identifier
+        - in: body
+          name: task
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+              completed:
+                type: boolean
+
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully updated task
+          schema:
+            $ref: '#/definitions/Task'
+        400:
+          description: Couldn't update task
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Couldn't update task 10239sdi
+              error:
+                type: string
+                example: Something went wrong
+
+definitions:
+  Task:
+    properties:
+      id:
+        type: string
+        example: '61e16f0e8241ec78fe1f995f'
+      title:
+        type: string
+        example: 'Hello, world!'
+      description:
+        type: string
+        example: 'This is a sample task.'
+      completed:
+        type: boolean
+        example: false
+      created_at:
+        type: string
+        example: '2022-01-14T12:39:42.018Z'

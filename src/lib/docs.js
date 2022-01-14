@@ -6,7 +6,7 @@ import yaml from 'yamljs'
  * @param { import('express').Express } app Express application
  */
 const addDocsEndpoint = (app) => {
-  const swaggerDocument = yaml.load('./api-docs.yaml')
+  const swaggerDocument = yaml.load('./swagger.yaml')
 
   app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 }
