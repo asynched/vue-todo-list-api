@@ -32,7 +32,7 @@ export default class TaskController {
     const id = request.params.id
     const [task, error] = await monadic(() => Task.findById(id).exec())
 
-    if (error) {
+    if (error || !task) {
       return response.status(404).json({
         message: 'The task you were looking for was not found',
         error,
