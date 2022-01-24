@@ -120,4 +120,23 @@ export default class TaskController {
       message: 'Successfully deleted task',
     })
   }
+
+  /**
+   * Deletes all tasks in the database.
+   * @param { import('@/lib/http').ContextType } context HTTP request context
+   */
+  static async deleteAllTasks({ request, response }) {
+    const [, error] = await monadic(() => Task.deleteMany({}).exec())
+
+    if (error) {
+      return response.status(404).json({
+        message: `Couldn't delete all tasks`,
+        error: error,
+      })
+    }
+    
+    return response.status(204).json({
+      message: `Successfully deleted all tasks`,
+    })
+  }
 }
