@@ -6,6 +6,7 @@ const router = Router()
 
 router.get('/tasks', bindContext(TaskController.getTasks))
 router.post('/tasks', bindContext(TaskController.createTask))
+router.delete('/tasks', bindContext(TaskController.deleteAllTasks))
 
 router.get('/tasks/:id', bindContext(TaskController.getTask))
 router.delete('/tasks/:id', bindContext(TaskController.deleteTask))
